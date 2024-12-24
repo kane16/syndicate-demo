@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 @LambdaHandler(
-  methodName = "hello",
   lambdaName = "hello_world",
   isPublishVersion = true,
   roleName = "hello_world-role",
