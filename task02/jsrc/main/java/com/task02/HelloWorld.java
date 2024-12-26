@@ -20,7 +20,7 @@ import java.util.function.Function;
 
 @LambdaHandler(
     lambdaName = "hello_world",
-    isPublishVersion = false,
+    isPublishVersion = true,
     roleName = "hello_world-role",
     aliasName = "learn",
     logsExpiration = RetentionSetting.SYNDICATE_ALIASES_SPECIFIED
@@ -41,7 +41,7 @@ public class HelloWorld implements RequestHandler<APIGatewayV2HTTPEvent, APIGate
       return APIGatewayV2HTTPResponse.builder()
           .withStatusCode(200)
           .withHeaders(responseHeaders)
-          .withBody(String.format("{\"message\": \"%s\", \"statusCode\": %d}", "Hello from Lambda", 200))
+          .withBody(String.format("{\"statusCode\": %d, \"message\": \"%s\"}", 200, "Hello from Lambda"))
           .build();
     } else {
       return APIGatewayV2HTTPResponse.builder()
@@ -49,11 +49,11 @@ public class HelloWorld implements RequestHandler<APIGatewayV2HTTPEvent, APIGate
           .withHeaders(responseHeaders)
           .withBody(
               String.format(
-                  "{\"message\": \"%s\", \"statusCode\": %d}",
+                  "{\"statusCode\": %d, \"message\": \"%s\"}",
+                  400,
                   String.format(
                       "Bad request syntax or unsupported method. Request path: %s. HTTP method: %s",
-                      path, method),
-                  400
+                      path, method)
               )
 
           )
