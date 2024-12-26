@@ -29,35 +29,27 @@ import java.util.function.Function;
     authType = AuthType.NONE,
     invokeMode = InvokeMode.BUFFERED
 )
-public class HelloWorld implements RequestHandler<APIGatewayV2HTTPEvent, APIGatewayV2HTTPResponse> {
+public class HelloWorld implements RequestHandler<APIGatewayV2HTTPEvent, Map<String, Object>> {
 
   private final Map<String, String> responseHeaders = Map.of("Content-Type", "application/json");
 
-  public APIGatewayV2HTTPResponse handleRequest(APIGatewayV2HTTPEvent requestEvent,
+  public Map<String, Object> handleRequest(APIGatewayV2HTTPEvent requestEvent,
       Context context) {
     var method = requestEvent.getRequestContext().getHttp().getMethod();
     var path = requestEvent.getRequestContext().getHttp().getPath();
     if (method.equals("GET") && path.equals("/hello")) {
-      return APIGatewayV2HTTPResponse.builder()
-          .withStatusCode(200)
-          .withHeaders(responseHeaders)
-          .withBody(String.format("{\"statusCode\": %d, \"message\": \"%s\"}", 200, "Hello from Lambda"))
-          .build();
+      var response = new HashMap<String, Object>();
+      response.put("statusCode", 200);
+      response.put("message", "Hello from Lambda");
+      return response;
     } else {
-      return APIGatewayV2HTTPResponse.builder()
-          .withStatusCode(400)
-          .withHeaders(responseHeaders)
-          .withBody(
-              String.format(
-                  "{\"statusCode\": %d, \"message\": \"%s\"}",
-                  400,
-                  String.format(
-                      "Bad request syntax or unsupported method. Request path: %s. HTTP method: %s",
-                      path, method)
-              )
-
-          )
-          .build();
+      var response = new HashMap<String, Object>();
+      response.put("statusCode", 400);
+      response.put("message", String.format(
+          "Bad request syntax or unsupported method. Request path: %s. HTTP method: %s",
+          path, method
+      ));
+      return response;
     }
   }
 
