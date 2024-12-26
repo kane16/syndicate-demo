@@ -35,7 +35,7 @@ public class HelloWorld implements RequestHandler<APIGatewayV2HTTPEvent, APIGate
       return APIGatewayV2HTTPResponse.builder()
           .withStatusCode(200)
           .withHeaders(responseHeaders)
-          .withBody(String.format("{\"statusCode\": %d, \"message\": \"%s\"}", 200, "Hello from Lambda"))
+          .withBody(String.format("\"statusCode\": %d, \"message\": \"%s\"", 200, "Hello from Lambda"))
           .build();
     } else {
       return APIGatewayV2HTTPResponse.builder()
@@ -43,7 +43,7 @@ public class HelloWorld implements RequestHandler<APIGatewayV2HTTPEvent, APIGate
           .withHeaders(responseHeaders)
           .withBody(
               String.format(
-                  "{\"statusCode\": %d, \"message\": \"%s\"}",
+                  "\"statusCode\": %d, \"message\": \"%s\"",
                   400,
                   String.format(
                       "Bad request syntax or unsupported method. Request path: %s. HTTP method: %s",
