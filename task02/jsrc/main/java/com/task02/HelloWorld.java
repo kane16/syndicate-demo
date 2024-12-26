@@ -9,6 +9,7 @@ import com.google.gson.GsonBuilder;
 import com.syndicate.deployment.annotations.lambda.LambdaHandler;
 import com.syndicate.deployment.annotations.lambda.LambdaLayer;
 import com.syndicate.deployment.annotations.lambda.LambdaUrlConfig;
+import com.syndicate.deployment.model.ArtifactExtension;
 import com.syndicate.deployment.model.RetentionSetting;
 
 import com.syndicate.deployment.model.lambda.url.AuthType;
@@ -21,13 +22,14 @@ import java.util.function.Function;
   lambdaName = "hello_world",
   isPublishVersion = true,
   roleName = "hello_world-role",
-  layers = "sdk-layer",
+  layers = {"sdk-layer"},
   aliasName = "learn",
   logsExpiration = RetentionSetting.SYNDICATE_ALIASES_SPECIFIED
 )
 @LambdaLayer(
     layerName = "sdk-layer",
-    libraries = {"lib/gson-2.10.1.jar"}
+    libraries = {"lib/commons-lang3-3.14.0.jar", "lib/gson-2.10.1.jar"},
+    artifactExtension = ArtifactExtension.ZIP
 )
 @LambdaUrlConfig(
     authType = AuthType.NONE,
