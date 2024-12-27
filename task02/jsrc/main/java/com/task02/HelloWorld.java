@@ -13,10 +13,9 @@ import com.syndicate.deployment.model.lambda.url.InvokeMode;
 import java.util.Map;
 
 @LambdaHandler(
-    lambdaName = "hello_world",
-    isPublishVersion = true,
-    roleName = "hello_world-role",
     aliasName = "learn",
+    lambdaName = "hello_world",
+    roleName = "hello_world-role",
     logsExpiration = RetentionSetting.SYNDICATE_ALIASES_SPECIFIED
 )
 @LambdaUrlConfig(
